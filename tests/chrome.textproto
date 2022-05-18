@@ -31,7 +31,7 @@ reset_steps: [
       start_activity: {
         force_stop: true
         full_activity: "com.android.chrome/com.google.android.apps.chrome.Main"
-        extra_args: ["-d","https://uni.lu"]
+        extra_args: ["-d","https://bbc.com"]
       }
     }
     success_condition: {
@@ -65,13 +65,13 @@ max_episode_sec: 7200  # Prevent infinite episodes.
 
 log_parsing_config: {
 
-  filters: ["AndroidRLTask:V"]
+  filters: ["*:V"]
 
   log_regexps: {
     score: "^[Ss]core: ([-+]?[0-9]*\\.?[0-9]*)$"
     reward: "^[Rr]eward: ([-+]?[0-9]*\\.?[0-9]*)$"
     episode_end: "^[Ss]core: ([-+]?[0-9]*\\.?[0-9]*)$"  # End the episode upon any score received.
-    extra: "^extra: (?P<name>[^ ]*)[ ]?(?P<extra>.*)$"
+    extra: "^.*CONSOLE(?P<name>.*)[ ](?P<extra>.*)$"
     json_extra: "^json_extra: (?P<json_extra>.*)$"
   }
 }
@@ -79,11 +79,12 @@ log_parsing_config: {
 extras_spec: [
   # All of these a returned when the ball arrives at the bottom of the screen
   # The number of remaining lives
-  { name: "lives" shape: [1] dtype: INT32 },
-  # The x,y coordinates of the centel of the ball
-  { name: "ball" shape: [2] dtype: INT32 },
-  # The x,y coordinates of the center of the paddle
-  { name: "paddle" shape: [2] dtype: INT32 },
-  # The paddle width
-  { name: "paddle_width" shape: [1] dtype: INT32 }
+  # { name: "lives" shape: [1] dtype: INT32 },
+  # # The x,y coordinates of the centel of the ball
+  # { name: "ball" shape: [2] dtype: INT32 },
+  # # The x,y coordinates of the center of the paddle
+  # { name: "paddle" shape: [2] dtype: INT32 },
+  # # The paddle width
+  # { name: "paddle_width" shape: [1] dtype: INT32 }
+  # { name: "chrome_console" shape: [1] dtype: STRING}
 ]

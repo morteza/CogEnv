@@ -42,7 +42,8 @@ def main(_):
     for step in range(n_steps):
       action = get_random_action()
       timestep = env.step(action=action)
-      logging.info(f'Step {step}, action: {action}, reward: {timestep.reward}')
+      # logging.info(f'Step {step}, action: {action}, reward: {timestep.reward}')
+      logging.info(f'>>>>>>>>>>> {env.task_extras()}')
 
 
 if __name__ == '__main__':
