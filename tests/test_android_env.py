@@ -2,6 +2,8 @@ from typing import Dict
 from absl import app
 from absl import logging
 
+from pathlib import Path
+
 from android_env import loader
 from dm_env import specs
 import numpy as np
@@ -9,6 +11,7 @@ import numpy as np
 
 # params
 avd_name = 'Pixel_4_API_32'
+home_dir = Path('~').expanduser()
 tasks_root = '/home/morteza/Desktop'
 task_path = f'{tasks_root}/chrome.textproto'
 n_steps = 1000
@@ -19,10 +22,10 @@ def main(_):
   with loader.load(
       avd_name=avd_name,
       task_path=task_path,
-      android_avd_home='/home/morteza/.android/avd',
-      android_sdk_root='/home/morteza/Android/Sdk',
-      emulator_path='/home/morteza/Android/Sdk/emulator/emulator',
-      adb_path='/home/morteza/Android/Sdk/platform-tools/adb',
+      android_avd_home=home_dir / '.android/avd',
+      android_sdk_root=home_dir / 'Android/Sdk',
+      emulator_path=home_dir / 'Android/Sdk/emulator/emulator',
+      adb_path=home_dir / 'Android/Sdk/platform-tools/adb',
       run_headless=False) as env:
 
     action_spec = env.action_spec()
