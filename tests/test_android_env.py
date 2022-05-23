@@ -12,8 +12,7 @@ import numpy as np
 # params
 avd_name = 'Pixel_4_API_32'
 home_dir = Path('~').expanduser()
-tasks_root = '/home/morteza/Desktop'
-task_path = f'{tasks_root}/chrome.textproto'
+task_path = 'cog_env/proto/chrome.textproto'
 n_steps = 1000
 
 
