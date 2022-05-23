@@ -1,0 +1,13 @@
+name: cog_env
+channels:
+  - conda-forge
+dependencies:
+  - python=3.9.12
+  - ipykernel
+  - jupyter
+  - notebook
+  - flake8
+  - pip:
+    - git+https://github.com/deepmind/android_env/
+    - pandas
+    - seaborn
