@@ -10,22 +10,22 @@ import numpy as np
 
 
 # params
-avd_name = 'Pixel_4_API_32'
-home_dir = Path('~').expanduser()
-task_path = 'cog_env/proto/chrome.textproto'
+avd_name = 'Pixel_3a_XL_API_31'
+home_dir = Path.home()
+tasks_root = '/Users/morteza/workspace/cog_env/proto'
+task_path = f'{tasks_root}/chrome.textproto'
 n_steps = 1000
 
 
 def main(_):
 
-  with loader.load(
-      avd_name=avd_name,
-      task_path=task_path,
-      android_avd_home=home_dir / '.android/avd',
-      android_sdk_root=home_dir / 'Android/Sdk',
-      emulator_path=home_dir / 'Android/Sdk/emulator/emulator',
-      adb_path=home_dir / 'Android/Sdk/platform-tools/adb',
-      run_headless=False) as env:
+  with loader.load(avd_name=avd_name,
+                   task_path=task_path,
+                   android_avd_home=home_dir / '.android/avd',
+                   android_sdk_root=home_dir / 'Android/Sdk',
+                   emulator_path=home_dir / 'Android/Sdk/emulator/emulator',
+                   adb_path=home_dir / 'Android/Sdk/platform-tools/adb',
+                   run_headless=False) as env:
 
     action_spec = env.action_spec()
 
