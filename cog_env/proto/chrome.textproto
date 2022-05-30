@@ -32,7 +32,7 @@ reset_steps: [
       start_activity: {
         force_stop: true
         # full_activity: "com.android.chrome/com.google.android.apps.chrome.Main"
-        full_activity: "com.google.android.webview/.MainActivity"
+        full_activity: "org.chromium.android_webview.devui.MainActivity"
         extra_args: ["-d","https://bbc.com"]
       }
     }
@@ -40,20 +40,20 @@ reset_steps: [
       wait_for_app_screen: {
         app_screen: {
           # activity: "com.android.chrome/com.google.android.apps.chrome.Main"
-          activity: "com.google.android.webview/.MainActivity"
+          activity: "org.chromium.android_webview.devui.MainActivity"
           view_hierarchy_path: [
           ]
         }
         timeout_sec: 10.0
       }
-      num_retries: 10
+      num_retries: 1
     }
   },
   {
     adb_request: {
       start_screen_pinning: {
         # full_activity: "com.android.chrome/com.google.android.apps.chrome.Main"
-        full_activity: "com.google.android.webview/.MainActivity"
+        full_activity: "org.chromium.android_webview.devui.MainActivity"
       }
     }
   }
@@ -61,7 +61,7 @@ reset_steps: [
 
 expected_app_screen: {
   # activity: "com.android.chrome/com.google.android.apps.chrome.Main"
-  activity: "com.google.android.webview/.MainActivity"
+  activity: "org.chromium.android_webview.devui.MainActivity"
   view_hierarchy_path: [
   ]
 }

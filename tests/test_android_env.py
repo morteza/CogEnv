@@ -10,21 +10,25 @@ import numpy as np
 
 
 # params
-avd_name = 'Pixel_3a_XL_API_31'
+avd_name = 'Resizable_API_32'
 home_dir = Path.home()
-tasks_root = '/Users/morteza/workspace/cog_env/proto'
-task_path = f'{tasks_root}/chrome.textproto'
 n_steps = 1000
 
+
+task_path = 'cog_env/proto/chrome.textproto'
+android_avd_home = Path.home() / '.android/avd'
+android_sdk_root = Path.home() / 'Android/Sdk'
+emulator_path = Path.home() / 'Android/Sdk/emulator/emulator'
+adb_path = Path.home() / 'Android/Sdk/platform-tools/adb'
 
 def main(_):
 
   with loader.load(avd_name=avd_name,
                    task_path=task_path,
-                   android_avd_home=home_dir / '.android/avd',
-                   android_sdk_root=home_dir / 'Android/Sdk',
-                   emulator_path=home_dir / 'Android/Sdk/emulator/emulator',
-                   adb_path=home_dir / 'Android/Sdk/platform-tools/adb',
+                   android_avd_home=str(android_avd_home),
+                   android_sdk_root=str(android_sdk_root),
+                   emulator_path=str(emulator_path),
+                   adb_path=str(adb_path),
                    run_headless=False) as env:
 
     action_spec = env.action_spec()
