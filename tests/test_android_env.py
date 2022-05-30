@@ -15,7 +15,7 @@ home_dir = Path.home()
 n_steps = 1000
 
 
-task_path = 'cog_env/proto/chrome.textproto'
+task_path = 'cog_env/proto/web.textproto'
 android_avd_home = Path.home() / '.android/avd'
 android_sdk_root = Path.home() / 'Android/Sdk'
 emulator_path = Path.home() / 'Android/Sdk/emulator/emulator'
