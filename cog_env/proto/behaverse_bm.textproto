@@ -1,16 +1,22 @@
-# proto-file: cog_env/proto/task.proto
-# proto-message: web.Task
+# proto-file: cog_env/proto/behaverse_bm.proto
+# proto-message: behaverse_bm.Task
 
-id: "web"
-name: "Web"
-description: "Open web browser and enter bbc.com in the url bar."
+id: "behaverse_bm"
+name: "BehaverseBM"
+description: "Install Behaverse, run it and initiate Belval Matrices"
 
 setup_steps: [
   {
+    adb_request: {
+      install_apk: {
+        filesystem: {
+          path: "vendor/Behaverse_android_1.0.60_debug.apk"
+        }
+      }
+    }
     success_condition: {
       check_install: {
-        # package_name: "com.android.chrome"
-        package_name: "com.google.android.webview"
+        package_name: "org.xcit.behaverse"
         timeout_sec: 10.0
       }
     }
@@ -20,7 +26,7 @@ setup_steps: [
     adb_request: {
       settings: {
         name_space: SYSTEM
-        put: { key: "user_rotation" value: "0" }
+        put: { key: "user_rotation" value: "1" }
       }
     }
   }
@@ -31,16 +37,14 @@ reset_steps: [
     adb_request: {
       start_activity: {
         force_stop: true
-        # full_activity: "com.android.chrome/com.google.android.apps.chrome.Main"
-        full_activity: "org.chromium.webview_shell/org.chromium.webview_shell.WebViewBrowserActivity"
-        extra_args: ["-d","https://bbc.com"]
+        full_activity: "org.xcit.behaverse/com.unity3d.player.UnityPlayerActivity"
+        extra_args: []
       }
     }
     success_condition: {
       wait_for_app_screen: {
         app_screen: {
-          # activity: "com.android.chrome/com.google.android.apps.chrome.Main"
-          activity: "org.chromium.webview_shell/org.chromium.webview_shell.WebViewBrowserActivity"
+          activity: "org.xcit.behaverse/com.unity3d.player.UnityPlayerActivity"
           view_hierarchy_path: [
           ]
         }
@@ -51,9 +55,9 @@ reset_steps: [
   },
   {
     adb_request: {
-      start_screen_pinning: {
-        # full_activity: "com.android.chrome/com.google.android.apps.chrome.Main"
-        full_activity: "org.chromium.webview_shell/org.chromium.webview_shell.WebViewBrowserActivity"
+      tap: {
+        x: 100
+        y: 100
       }
     }
   }
@@ -61,16 +65,16 @@ reset_steps: [
 
 expected_app_screen: {
   # activity: "com.android.chrome/com.google.android.apps.chrome.Main"
-  activity: "org.chromium.webview_shell/org.chromium.webview_shell.WebViewBrowserActivity"
+  activity: "org.xcit.behaverse/com.unity3d.player.UnityPlayerActivity"
   view_hierarchy_path: [
   ]
 }
 
-max_episode_sec: 7200  # Prevent infinite episodes.
+max_episode_sec: 7200
 
 log_parsing_config: {
 
-  filters: ["*:V"]
+  filters: ["org.xcit.behaverse:V"]
 
   log_regexps: {
     score: "^[Ss]core: ([-+]?[0-9]*\\.?[0-9]*)$"

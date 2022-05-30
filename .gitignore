@@ -149,3 +149,7 @@ cython_debug/
 node_modules
 *.lock
 catalog-v001.xml
+
+
+# Vendor files
+vendor/Behaverse*.apk
