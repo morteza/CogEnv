@@ -36,8 +36,6 @@ def main(_):
                    run_headless=False) as env:
 
     action_spec = env.action_spec()
-
-    # env._coordinator._simulator.send_touch([(20,20,True,1), (20,20,False,1)])
     
     def get_random_action() -> Dict[str, np.ndarray]:
       """Returns a random AndroidEnv action."""
@@ -56,7 +54,7 @@ def main(_):
       timestep = env.step(action=action)
       # logging.info(f'Step {step}, action: {action}, reward: {timestep.reward}')
       # logging.info(f'Extras: {env.task_extras()}')
-      time.sleep(2)
+      time.sleep(.1)
 
 if __name__ == '__main__':
   app.run(main)
