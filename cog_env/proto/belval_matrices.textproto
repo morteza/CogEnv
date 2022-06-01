@@ -1,0 +1,121 @@
+# proto-file: cog_env/proto/belval_matrices.textproto
+# proto-message: belval_matrices.Task
+
+id: "belval_matrices"
+name: "BehaverseBelvalMatrices"
+description: "Install Behaverse, run it, and initiate Belval Matrices scene"
+
+setup_steps: [
+  {
+    adb_request: {
+      install_apk: {
+        filesystem: {
+          path: "vendor/Behaverse_android_1.0.60_debug.apk"
+        }
+      }
+    }
+    success_condition: {
+      check_install: {
+        package_name: "org.xcit.behaverse"
+        timeout_sec: 10.0
+      }
+    }
+  },
+  {
+    adb_request: {
+      push: {
+        content: "<MISSING>"
+        # path: "/data/user/0/org.xcit.behaverse/files/Tasks/Resources/Configs/BM.json"
+        path: "/sdcard/Android/data/org.xcit.behaverse/files/Tasks/Resources/Configs/BM.json"
+      }
+    }
+  },
+  {
+    # Put the device in portrait mode.
+    adb_request: {
+      settings: {
+        name_space: SYSTEM
+        put: { key: "user_rotation" value: "1" }
+      }
+    }
+  }
+]
+
+reset_steps: [
+  {
+    adb_request: {
+      start_activity: {
+        force_stop: true
+        full_activity: "org.xcit.behaverse/com.unity3d.player.UnityPlayerActivity"
+        extra_args: []
+      }
+    }
+    success_condition: {
+      wait_for_app_screen: {
+        app_screen: {
+          activity: "org.xcit.behaverse/com.unity3d.player.UnityPlayerActivity"
+          view_hierarchy_path: [
+          ]
+        }
+        timeout_sec: 60.0
+      }
+      num_retries: 1
+    }
+  },
+  {
+    adb_request: {
+      start_screen_pinning: {
+        # full_activity: "com.android.chrome/com.google.android.apps.chrome.Main"
+        full_activity: "org.xcit.behaverse/com.unity3d.player.UnityPlayerActivity"
+      }
+    }
+  },
+  {
+    adb_request: {
+      tap: {
+        x: 45
+        y: 60
+      }
+      # first screen play button:  45, 60
+      # second screen BM  button: 85 60 (in 320x240)
+      # BM choices (in 320x240)
+      # x=100,140,180,220
+      # y=170,210
+    }
+  }
+]
+
+expected_app_screen: {
+  activity: "org.xcit.behaverse/com.unity3d.player.UnityPlayerActivity"
+  view_hierarchy_path: [
+  ]
+}
+
+
+max_episode_sec: 7200
+
+log_parsing_config: {
+
+  filters: ["org.xcit.behaverse:V"]
+
+  log_regexps: {
+    score: "^[Ss]core: ([-+]?[0-9]*\\.?[0-9]*)$"
+    reward: "^[Rr]eward: ([-+]?[0-9]*\\.?[0-9]*)$"
+    episode_end: "^[Ss]core: ([-+]?[0-9]*\\.?[0-9]*)$"  # End the episode upon any score received.
+    extra: "^.*CONSOLE(?P<name>.*)[ ](?P<extra>.*)$"
+    json_extra: "^json_extra: (?P<json_extra>.*)$"
+  }
+}
+
+extras_spec: [
+  # All of these a returned when the ball arrives at the bottom of the screen
+  # The number of remaining lives
+  # { name: "lives" shape: [1] dtype: INT32 },
+  # # The x,y coordinates of the centel of the ball
+  # { name: "ball" shape: [2] dtype: INT32 },
+  # # The x,y coordinates of the center of the paddle
+  # { name: "paddle" shape: [2] dtype: INT32 },
+  # # The paddle width
+  # { name: "paddle_width" shape: [1] dtype: INT32 }
+  # { name: "chrome_console" shape: [1] dtype: STRING}
+]
