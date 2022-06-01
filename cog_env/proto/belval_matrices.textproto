@@ -11,53 +11,53 @@ setup_steps: [
       generic: {
         args: ["root"]
         }
+    }
+  },
+  {
+    sleep: {
+      time_sec: 2
+    }
+  },
+  {
+    adb_request: {
+      generic:{
+        args:[
+          "push",
+          "vendor/BM.json",
+          "/storage/emulated/0/Android/data/org.xcit.behaverse/files/Tasks/Resources/Configs/BM.json"
+        ]
       }
-    },
-    {
-      sleep: {
-        time_sec: 2
+      # push: {
+      #   content: "<MISSING>"
+      #   path: "/sdcard/Android/data/org.xcit.behaverse/files/Tasks/Resources/Configs/BM.json"
+      # }
+    }
+  },
+  {
+    sleep: {
+      time_sec: 1
+    }
+  },
+  {
+    adb_request: {
+      generic:{
+        args:[
+          "shell",
+          "chmod", "777", "-R",
+           "/storage/emulated/0/Android/data/org.xcit.behaverse/"
+        ]
       }
-    },
-    {
-      adb_request: {
-        generic:{
-          args:[
-            "push",
-            "vendor/BM.json",
-            "/storage/emulated/0/Android/data/org.xcit.behaverse/files/Tasks/Resources/Configs/BM.json"
-          ]
-        }
-        # push: {
-        #   content: "<MISSING>"
-        #   path: "/sdcard/Android/data/org.xcit.behaverse/files/Tasks/Resources/Configs/BM.json"
-        # }
+    }
+  },
+  {
+    adb_request: {
+      generic:{
+        args:["shell", "setenforce", "0"]
       }
-    },
-    {
-      sleep: {
-        time_sec: 1
-      }
-    },
-    {
-      adb_request: {
-        generic:{
-          args:[
-            "shell",
-            "chmod", "777", "-R",
-            "/storage/emulated/0/Android/data/org.xcit.behaverse/"
-          ]
-        }
-      }
-    },
-    {
-      adb_request: {
-        generic:{
-          args:["shell", "setenforce", "0"]
-        }
-      }
-    },
-    {
-      adb_request: {
+    }
+  },
+  {
+    adb_request: {
       install_apk: {
         filesystem: {
           path: "vendor/Behaverse_android_1.0.60_debug.apk"
@@ -95,12 +95,16 @@ reset_steps: [
       wait_for_app_screen: {
         app_screen: {
           activity: "org.xcit.behaverse/com.unity3d.player.UnityPlayerActivity"
-          view_hierarchy_path: [
-          ]
+          view_hierarchy_path: []
         }
         timeout_sec: 60.0
       }
       num_retries: 1
+    }
+  },
+  {
+    sleep: {
+      time_sec: 30
     }
   },
   {
@@ -113,15 +117,47 @@ reset_steps: [
   },
   {
     adb_request: {
+      # tap play button (45x60)  in (320x240)
       tap: {
         x: 45
         y: 60
       }
-      # first screen play button:  45, 60
-      # second screen BM  button: 85 60 (in 320x240)
       # BM choices (in 320x240)
       # x=100,140,180,220
       # y=170,210
+    }
+  },
+  {
+    sleep: {
+      time_sec: 2
+    }
+  },
+  {
+    adb_request: {
+      # tap BM button (45x60)  in (320x240)
+      tap: {
+        x: 45
+        y: 60
+      }
+    }
+  },
+  {
+    sleep: {
+      time_sec: 2
+    }
+  },
+  {
+    adb_request: {
+      # tap timeline button (45x60)  in (320x240)
+      tap: {
+        x: 45
+        y: 60
+      }
+    }
+  },
+  {
+    sleep: {
+      time_sec: 2
     }
   }
 ]
