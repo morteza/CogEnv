@@ -23,8 +23,13 @@ with open(task_proto_path, 'r') as proto_file:
 with open(timeline_json_path, 'rb') as f:
     content = json.loads(f.read())
     content_minified = json.dumps(content, separators=(',', ':')).encode('utf-8')
-    task.setup_steps[1].adb_request.push.content = content_minified  # type: ignore
+
+    for i, step in enumerate(task.setup_steps):
+        if 'adb_request' in str(step) and 'push' in str(step):
+            task.setup_steps[i].adb_request.push.content = content_minified  # type: ignore
 
 # write output
 with open(output_proto_path, 'w') as f:
     f.write(text_format.MessageToString(task))  # type: ignore
+
+print('Saved the proto to {}.'.format(output_proto_path))

@@ -10,7 +10,7 @@ import numpy as np
 
 
 # params
-avd_name = 'CogEnv_API_31'
+avd_name = 'CogEnv_API_32'
 home_dir = Path.home()
 n_steps = 1000
 
@@ -35,7 +35,7 @@ def main(_):
 
     action_spec = env.action_spec()
 
-    env._coordinator._simulator.send_touch([(20,20,True,1), (20,20,False,1)])
+    # env._coordinator._simulator.send_touch([(20,20,True,1), (20,20,False,1)])
     
     def get_random_action() -> Dict[str, np.ndarray]:
       """Returns a random AndroidEnv action."""

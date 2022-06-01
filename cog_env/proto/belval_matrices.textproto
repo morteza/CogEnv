@@ -8,6 +8,30 @@ description: "Install Behaverse, run it, and initiate Belval Matrices scene"
 setup_steps: [
   {
     adb_request: {
+      generic: {
+        args: ["root"]
+      }
+    }
+  },
+  {
+    sleep: {
+      time_sec: 1
+    }
+  },
+  # {
+  #   adb_request: {
+  #     generic: {
+  #       args: ["remount"]
+  #     }
+  #   }
+  # },
+  # {
+  #   sleep: {
+  #     time_sec: 1
+  #   }
+  # },
+  {
+    adb_request: {
       install_apk: {
         filesystem: {
           path: "vendor/Behaverse_android_1.0.60_debug.apk"
@@ -23,9 +47,15 @@ setup_steps: [
   },
   {
     adb_request: {
+      generic: {
+        args: ["shell","mkdir","-p","/sdcard/Android/data/org.xcit.behaverse/files/Tasks/Resources/Configs/"]
+      }
+    }
+  },
+  {
+    adb_request: {
       push: {
         content: "<MISSING>"
-        # path: "/data/user/0/org.xcit.behaverse/files/Tasks/Resources/Configs/BM.json"
         path: "/sdcard/Android/data/org.xcit.behaverse/files/Tasks/Resources/Configs/BM.json"
       }
     }
