@@ -10,17 +10,18 @@ import numpy as np
 
 
 # params
-avd_name = 'Resizable_API_32'
+avd_name = 'CogEnv_API_31'
 home_dir = Path.home()
 n_steps = 1000
 
 
 # task_path = 'cog_env/proto/web.textproto'
-task_path = 'cog_env/proto/behaverse_bm.textproto'
+task_path = 'vendor/BM.textproto'
 android_avd_home = Path.home() / '.android/avd'
 android_sdk_root = Path.home() / 'Android/Sdk'
 emulator_path = Path.home() / 'Android/Sdk/emulator/emulator'
 adb_path = Path.home() / 'Android/Sdk/platform-tools/adb'
+
 
 def main(_):
 
@@ -34,7 +35,7 @@ def main(_):
 
     action_spec = env.action_spec()
 
-    # env._coordinator._simulator.send_touch([(20,20,True,1), (20,20,False,1)])
+    env._coordinator._simulator.send_touch([(20,20,True,1), (20,20,False,1)])
     
     def get_random_action() -> Dict[str, np.ndarray]:
       """Returns a random AndroidEnv action."""
@@ -51,8 +52,8 @@ def main(_):
     for step in range(n_steps):
       action = get_random_action()
       timestep = env.step(action=action)
-      logging.info(f'Step {step}, action: {action}, reward: {timestep.reward}')
-      logging.info(f'Extras: {env.task_extras()}')
+      # logging.info(f'Step {step}, action: {action}, reward: {timestep.reward}')
+      # logging.info(f'Extras: {env.task_extras()}')
 
 
 if __name__ == '__main__':

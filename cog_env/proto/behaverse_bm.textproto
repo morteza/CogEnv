@@ -22,6 +22,15 @@ setup_steps: [
     }
   },
   {
+    adb_request: {
+      push: {
+        content: "<MISSING>"
+        # path: "/data/user/0/org.xcit.behaverse/files/Tasks/Resources/Configs/BM.json"
+        path: "/sdcard/Android/data/org.xcit.behaverse/files/Tasks/Resources/Configs/BM.json"
+      }
+    }
+  },
+  {
     # Put the device in portrait mode.
     adb_request: {
       settings: {
@@ -48,27 +57,40 @@ reset_steps: [
           view_hierarchy_path: [
           ]
         }
-        timeout_sec: 10.0
+        timeout_sec: 60.0
       }
       num_retries: 1
     }
   },
   {
     adb_request: {
-      tap: {
-        x: 100
-        y: 100
+      start_screen_pinning: {
+        # full_activity: "com.android.chrome/com.google.android.apps.chrome.Main"
+        full_activity: "org.xcit.behaverse/com.unity3d.player.UnityPlayerActivity"
       }
+    }
+  },
+  {
+    adb_request: {
+      tap: {
+        x: 45
+        y: 60
+      }
+      # first screen play button:  45, 60
+      # second screen BM  button: 85 60 (in 320x240)
+      # BM choices (in 320x240)
+      # x=100,140,180,220
+      # y=170,210
     }
   }
 ]
 
 expected_app_screen: {
-  # activity: "com.android.chrome/com.google.android.apps.chrome.Main"
   activity: "org.xcit.behaverse/com.unity3d.player.UnityPlayerActivity"
   view_hierarchy_path: [
   ]
 }
+
 
 max_episode_sec: 7200
 
