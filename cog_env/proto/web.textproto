@@ -1,9 +1,9 @@
-# proto-file: cog_env/proto/task.proto
+# proto-file: cog_env/proto/web.proto
 # proto-message: web.Task
 
 id: "web"
 name: "Web"
-description: "Open web browser and enter bbc.com in the url bar."
+description: "Open web browser and enter behaverse.org in the url bar."
 
 setup_steps: [
   {
@@ -33,7 +33,7 @@ reset_steps: [
         force_stop: true
         # full_activity: "com.android.chrome/com.google.android.apps.chrome.Main"
         full_activity: "org.chromium.webview_shell/org.chromium.webview_shell.WebViewBrowserActivity"
-        extra_args: ["-d","https://bbc.com"]
+        extra_args: ["-d","http://behaverse.org"]
       }
     }
     success_condition: {

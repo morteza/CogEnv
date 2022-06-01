@@ -1,3 +1,4 @@
+
 from typing import Sequence, Dict
 
 from android_env.components import action_type
@@ -8,7 +9,7 @@ import numpy as np
 
 
 class BelvalMatricesActionWrapper(base_wrapper.BaseWrapper):
-  """Behaverse Common actions wrapper."""
+  """Behaverse BM actions wrapper."""
 
   def __init__(self, env: dm_env.Environment):
     super().__init__(env)
