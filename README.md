@@ -1,6 +1,6 @@
 # cog_env: Cognitive Tests Environments
 
-The `cog_env` package provides standard cognitive tests as RL environments. It uses AndroidEnv to wrap around Behaverse and ExpFactory.
+The CogEnv package provides standard cognitive tests as RL environments. It uses AndroidEnv to wrap [Behaverse Cognitive Assessment Battery](https://behaverse.org).
 
 ## Overview
 
@@ -18,4 +18,4 @@ mamba env create -f enviroment.yml
 # mamba env update -f enviroment.yml
 ```
 
-## Citiation
+## Citation
