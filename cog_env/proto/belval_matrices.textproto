@@ -10,28 +10,54 @@ setup_steps: [
     adb_request: {
       generic: {
         args: ["root"]
+        }
       }
-    }
-  },
-  {
-    sleep: {
-      time_sec: 1
-    }
-  },
-  # {
-  #   adb_request: {
-  #     generic: {
-  #       args: ["remount"]
-  #     }
-  #   }
-  # },
-  # {
-  #   sleep: {
-  #     time_sec: 1
-  #   }
-  # },
-  {
-    adb_request: {
+    },
+    {
+      sleep: {
+        time_sec: 2
+      }
+    },
+    {
+      adb_request: {
+        generic:{
+          args:[
+            "push",
+            "vendor/BM.json",
+            "/storage/emulated/0/Android/data/org.xcit.behaverse/files/Tasks/Resources/Configs/BM.json"
+          ]
+        }
+        # push: {
+        #   content: "<MISSING>"
+        #   path: "/sdcard/Android/data/org.xcit.behaverse/files/Tasks/Resources/Configs/BM.json"
+        # }
+      }
+    },
+    {
+      sleep: {
+        time_sec: 1
+      }
+    },
+    {
+      adb_request: {
+        generic:{
+          args:[
+            "shell",
+            "chmod", "777", "-R",
+            "/storage/emulated/0/Android/data/org.xcit.behaverse/"
+          ]
+        }
+      }
+    },
+    {
+      adb_request: {
+        generic:{
+          args:["shell", "setenforce", "0"]
+        }
+      }
+    },
+    {
+      adb_request: {
       install_apk: {
         filesystem: {
           path: "vendor/Behaverse_android_1.0.60_debug.apk"
@@ -46,22 +72,7 @@ setup_steps: [
     }
   },
   {
-    adb_request: {
-      generic: {
-        args: ["shell","mkdir","-p","/sdcard/Android/data/org.xcit.behaverse/files/Tasks/Resources/Configs/"]
-      }
-    }
-  },
-  {
-    adb_request: {
-      push: {
-        content: "<MISSING>"
-        path: "/sdcard/Android/data/org.xcit.behaverse/files/Tasks/Resources/Configs/BM.json"
-      }
-    }
-  },
-  {
-    # Put the device in portrait mode.
+    # Put the device in landscape mode.
     adb_request: {
       settings: {
         name_space: SYSTEM

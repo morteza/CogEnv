@@ -1143,6 +1143,40 @@
 					}	
 			}
 		},
+		"XCIT_BM_02_Test": {
+			"Inherits": "Default",
+			"Parameters": {
+				"ShowAccuracyCheckFeedback": "Never",
+				"ShowCorrectTrialResponseFeedback": "Never",
+				"ShowPatternCompletionFeedback": "Never",
+				"ShowAccuracyOnButtonFeedback": false,
+				"MaxIdleTime": 120,
+				"BlockTimer_Position": "InformationPanel",
+				"UserInputTimer_Position": "StatusBarCenter"
+			},
+			"Trials":[
+				{"Parameters":{"ProblemConfig": "Transfo_7_V2", "TargetElementIndex": 6}, "Seed":4},
+				{"Parameters":{"ProblemConfig": "Logic_3", "TargetElementIndex": 1}, "Seed":11},
+				{"Parameters":{"ProblemConfig": "Transfo_25", "TargetElementIndex": 8}, "Seed":5},
+				{"Parameters":{"ProblemConfig": "Transfo_12", "TargetElementIndex": 3}, "Seed":3},
+				{"Parameters":{"ProblemConfig": "Transfo_15_V2", "TargetElementIndex": 4}, "Seed":9}, //05
+				{"Parameters":{"ProblemConfig": "Logic_3_V2", "TargetElementIndex": 7}, "Seed":1},
+				{"Parameters":{"ProblemConfig": "Transfo_14_V2", "TargetElementIndex": 2}, "Seed":18},
+				{"Parameters":{"ProblemConfig": "Transfo_16_V2", "TargetElementIndex": 5}, "Seed":7},
+				{"Parameters":{"ProblemConfig": "Transfo_18", "TargetElementIndex": 6}, "Seed":35},
+				{"Parameters":{"ProblemConfig": "Logic_8_V2", "TargetElementIndex": 2}, "Seed":4}, //10
+				{"Parameters":{"ProblemConfig": "Transfo_17_V2", "TargetElementIndex": 5}, "Seed":9},
+				{"Parameters":{"ProblemConfig": "Transfo_21_V2", "TargetElementIndex": 8}, "Seed":123},
+				{"Parameters":{"ProblemConfig": "Transfo_19", "TargetElementIndex": 1}, "Seed":7},
+				{"Parameters":{"ProblemConfig": "Logic_5", "TargetElementIndex": 7}, "Seed":3},
+				{"Parameters":{"ProblemConfig": "Transfo_22_V2", "TargetElementIndex": 6}, "Seed":5}, //15
+				{"Parameters":{"ProblemConfig": "Transfo_23_V2", "TargetElementIndex": 5}, "Seed":14}, 
+				{"Parameters":{"ProblemConfig": "Logic_7_V2", "TargetElementIndex": 2}, "Seed":4},
+				{"Parameters":{"ProblemConfig": "Transfo_19_V2", "TargetElementIndex": 3}, "Seed":9},
+				{"Parameters":{"ProblemConfig": "Transfo_20_V2", "TargetElementIndex": 1}, "Seed":24},
+				{"Parameters":{"ProblemConfig": "Logic_6", "TargetElementIndex": 4}, "Seed":2} //20
+			]
+		},
 		"XCIT_BM_02_Tutorial": {
 			"Inherits": "Default",
 			"Parameters": {

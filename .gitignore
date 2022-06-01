@@ -152,4 +152,5 @@ catalog-v001.xml
 
 
 # Vendor files
-vendor/Behaverse*.apk
+vendor/*.apk
+tmp/

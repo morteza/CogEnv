@@ -2,6 +2,8 @@ from typing import Dict
 from absl import app
 from absl import logging
 
+import time
+
 from pathlib import Path
 
 from android_env import loader
@@ -16,7 +18,7 @@ n_steps = 1000
 
 
 # task_path = 'cog_env/proto/web.textproto'
-task_path = 'vendor/BM.textproto'
+task_path = 'cog_env/proto/belval_matrices.textproto'
 android_avd_home = Path.home() / '.android/avd'
 android_sdk_root = Path.home() / 'Android/Sdk'
 emulator_path = Path.home() / 'Android/Sdk/emulator/emulator'
@@ -54,7 +56,7 @@ def main(_):
       timestep = env.step(action=action)
       # logging.info(f'Step {step}, action: {action}, reward: {timestep.reward}')
       # logging.info(f'Extras: {env.task_extras()}')
-
+      time.sleep(2)
 
 if __name__ == '__main__':
   app.run(main)
