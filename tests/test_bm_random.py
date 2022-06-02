@@ -24,6 +24,17 @@ android_sdk_root = Path.home() / 'Android/Sdk'
 emulator_path = Path.home() / 'Android/Sdk/emulator/emulator'
 adb_path = Path.home() / 'Android/Sdk/platform-tools/adb'
 
+    
+def get_random_action(action_spec) -> Dict[str, np.ndarray]:
+  """Returns a random AndroidEnv action."""
+  action = {}
+  for k, v in action_spec.items():
+    if isinstance(v, specs.DiscreteArray):
+      action[k] = np.random.randint(low=0, high=v.num_values, dtype=v.dtype)
+    else:
+      action[k] = np.random.random(size=v.shape).astype(v.dtype)
+  return action
+
 
 def main(_):
 
@@ -36,25 +47,16 @@ def main(_):
                    run_headless=False) as env:
 
     action_spec = env.action_spec()
-    
-    def get_random_action() -> Dict[str, np.ndarray]:
-      """Returns a random AndroidEnv action."""
-      action = {}
-      for k, v in action_spec.items():
-        if isinstance(v, specs.DiscreteArray):
-          action[k] = np.random.randint(low=0, high=v.num_values, dtype=v.dtype)
-        else:
-          action[k] = np.random.random(size=v.shape).astype(v.dtype)
-      return action
 
     env.reset()
 
     for step in range(n_steps):
-      action = get_random_action()
+      action = get_random_action(action_spec)
       timestep = env.step(action=action)
       # logging.info(f'Step {step}, action: {action}, reward: {timestep.reward}')
       # logging.info(f'Extras: {env.task_extras()}')
       time.sleep(.1)
+
 
 if __name__ == '__main__':
   app.run(main)

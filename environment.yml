@@ -1,13 +1,18 @@
 name: cog_env
+
 channels:
   - conda-forge
+
 dependencies:
-  - python=3.9.12
+  - python=3.9
   - ipykernel
   - jupyter
   - notebook
   - flake8
   - pip:
-    - git+https://github.com/deepmind/android_env/
-    - pandas
-    - seaborn
+    # - git+https://github.com/deepmind/android_env/
+    # - tensorflow==2.8.0
+    # - dm-acme
+    # - dm-acme[jax,tensrflow]
+    # - dm-acme[envs]
+    # - pandas
