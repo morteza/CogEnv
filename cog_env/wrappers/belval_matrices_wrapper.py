@@ -7,10 +7,7 @@ import dm_env
 from dm_env import specs
 import numpy as np
 
-from android_env.wrappers.discrete_action_wrapper import DiscreteActionWrapper
-from android_env.wrappers.image_rescale_wrapper import ImageRescaleWrapper
 from android_env.wrappers.float_pixels_wrapper import FloatPixelsWrapper
-from android_env.wrappers.flat_interface_wrapper import FlatInterfaceWrapper
 from acme import wrappers as acme_wrappers
 
 
@@ -23,11 +20,16 @@ class BelvalMatricesWrapper(base_wrapper.BaseWrapper):
     self._parent_action_spec = self._env.action_spec()
     self.num_choices = num_choices
     self._assert_base_env()
+    self._env_steps = 0
+
+  def stats(self):
+    logs = self._env.stats()
+    logs.update({'env_steps': self._env_steps})
+    return logs
 
   def apply_base_wrappers(self, env):
     """Applies a series of wrappers to the environment."""
-    # env = DiscreteActionWrapper(self._env, action_grid=(10, 10))
-#    env = ImageRescaleWrapper(env, zoom_factors=(0.25, 0.25))
+    # env = ImageRescaleWrapper(env, zoom_factors=(0.25, 0.25))
     env = FloatPixelsWrapper(env)
     # env = FlatInterfaceWrapper(env)
     # env = acme_wrappers.SinglePrecisionWrapper(env)
@@ -41,14 +43,29 @@ class BelvalMatricesWrapper(base_wrapper.BaseWrapper):
     assert self._parent_action_spec['touch_position'].shape == (2,)
 
   def step(self, action: Dict[str, int]) -> dm_env.TimeStep:
-    """Take a step in the base environment."""
+    self._env_steps += 2  # 2 steps per action (touch and lift)
+    tap_actions = self._process_action(action)
+    total_reward = 0.0
+    step_type, discount, observation = dm_env.StepType.MID, 0.0, None
 
-    return self._env.step(self._process_action(action))
+    print(tap_actions)
+    for a in tap_actions:
+      step_type, reward, discount, observation = self._env.step(a)
+      if reward:
+        total_reward += reward
+      if step_type == dm_env.StepType.LAST:
+        break
 
-  def _process_action(self, action: Dict[str, int]) -> Dict[str, np.ndarray]:
+    return dm_env.TimeStep(
+        step_type=step_type,
+        reward=total_reward,
+        discount=discount,
+        observation=observation)
+
+  def _process_action(self, action: Dict[str, int]) -> Sequence[Dict[str, np.ndarray]]:
     """Transforms BM action into AndroidEnv action."""
 
-    return {
+    touch = {
         'action_type':
             np.array(action_type.ActionType.TOUCH,
                      dtype=self._parent_action_spec['action_type'].dtype),
@@ -57,7 +74,18 @@ class BelvalMatricesWrapper(base_wrapper.BaseWrapper):
                      dtype=self._parent_action_spec['touch_position'].dtype)
     }
 
-  def _get_touch_position(self, action_id: int) -> Sequence[float]:
+    tap = [touch]
+
+    lift = touch.copy()
+    lift['action_type'] = np.array(
+        action_type.ActionType.LIFT,
+        dtype=self._parent_action_spec['action_type'].dtype)
+
+    tap.append(lift)
+
+    return tap
+
+  def _get_touch_position(self, action_id: int, orientation='landscape') -> Sequence[float]:
     """Compute the position of BM touches
 
     Args:
@@ -72,8 +100,21 @@ class BelvalMatricesWrapper(base_wrapper.BaseWrapper):
 
     buttons_pos = [(100, 170), (140, 170), (180, 170), (220, 170),
                    (100, 210), (140, 210), (180, 210), (220, 210)]
+    x, y = buttons_pos[action_id]
 
-    return buttons_pos[action_id]
+    x_noise, y_noise = np.random.uniform(-5, 5, size=2)
+
+    # FIXME should be taken from the screen info
+    width = 320.
+    height = 240.
+
+    x = (x + x_noise) / width
+    y = (y + y_noise) / height
+
+    if orientation == 'landscape':
+      return 1.0 - y, x
+    else:
+      return x, y
 
   def action_spec(self) -> Dict[str, specs.Array]:
     """Action spec of the wrapped BM environment."""

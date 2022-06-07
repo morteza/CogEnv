@@ -104,7 +104,7 @@ reset_steps: [
   },
   {
     sleep: {
-      time_sec: 30
+      time_sec: 20
     }
   },
   {
