@@ -7,10 +7,15 @@ from acme import wrappers as acme_wrappers
 from acme.agents.tf import dqn
 from acme.tf import networks
 from android_env import loader
-from android_env.wrappers import discrete_action_wrapper
-from android_env.wrappers import float_pixels_wrapper
-from android_env.wrappers import image_rescale_wrapper
+
 from pathlib import Path
+
+from android_env.wrappers.discrete_action_wrapper import DiscreteActionWrapper
+from android_env.wrappers.image_rescale_wrapper import ImageRescaleWrapper
+from android_env.wrappers.float_pixels_wrapper import FloatPixelsWrapper
+from android_env.wrappers.flat_interface_wrapper import FlatInterfaceWrapper
+
+
 
 
 avd_name = 'CogEnv_API_32'
@@ -26,10 +31,10 @@ num_episodes = 100
 
 def apply_wrappers(env):
   """Applies a series of wrappers to the environment."""
-  env = discrete_action_wrapper.DiscreteActionWrapper(env, action_grid=(10, 10))
-  env = image_rescale_wrapper.ImageRescaleWrapper(
-      env, zoom_factors=(0.25, 0.25))
-  env = float_pixels_wrapper.FloatPixelsWrapper(env)
+  env = DiscreteActionWrapper(env, action_grid=(10, 10))
+  env = ImageRescaleWrapper(env, zoom_factors=(0.25, 0.25))
+  env = FloatPixelsWrapper(env)
+  env = FlatInterfaceWrapper(env)
   env = acme_wrappers.SinglePrecisionWrapper(env)
   return env
 
