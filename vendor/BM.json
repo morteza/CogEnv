@@ -1110,7 +1110,7 @@
 				"ShowAccuracyCheckFeedback": "Never",
 				"ShowCorrectTrialResponseFeedback": "Never",
 				"ShowPatternCompletionFeedback": "Never",
-				"ShowAccuracyOnButtonFeedback": false,
+				"ShowAccuracyOnButtonFeedback": true,
 				"MaxIdleTime": 999,
 				"BlockTimer_Position": "Hidden",
 				"UserInputTimer_Position": "StatusBarCenter",

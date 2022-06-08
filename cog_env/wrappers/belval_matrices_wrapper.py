@@ -48,7 +48,6 @@ class BelvalMatricesWrapper(base_wrapper.BaseWrapper):
     total_reward = 0.0
     step_type, discount, observation = dm_env.StepType.MID, 0.0, None
 
-    print(tap_actions)
     for a in tap_actions:
       step_type, reward, discount, observation = self._env.step(a)
       if reward:
