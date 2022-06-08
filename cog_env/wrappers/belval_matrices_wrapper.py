@@ -99,15 +99,20 @@ class BelvalMatricesWrapper(base_wrapper.BaseWrapper):
         'sort -nr | '
         'cut -f 2- | '
         'head -1 | '
-        f'xargs -n 1 tail -1'
+        'xargs -n 1 tail -5'
     )
 
     adb_call = AdbRequest(generic=AdbRequest.GenericRequest(args=adb_cmd_args))
     adb_response = self.execute_adb_call(adb_call)
 
-    extras = json.loads(adb_response.generic.output)
+    behaverse_events = json.loads(adb_response.generic.output)
 
-    return extras
+    for event in reversed(behaverse_events):
+      if 'BM.TrialStart' in event['types'] or 'BM.TrialEnd' in event['types']:
+        return event
+
+    return behaverse_events[-1]
+
 
   def task_extras_spec(self) -> Dict[str, specs.Array]:
     return self._env.task_extras_spec()
