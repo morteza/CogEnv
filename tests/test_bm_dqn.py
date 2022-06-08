@@ -1,4 +1,4 @@
-"""Acme DQN agent interacting with AndroidEnv."""
+"""Acme DQN agent interacting with CogEnv."""
 
 from absl import app
 import acme
@@ -10,7 +10,6 @@ from cog_env.environment import CogEnv
 
 avd_name = 'CogEnv_API_32'
 task_name = 'belval_matrices'
-n_steps = 1000
 num_episodes = 100
 num_choices = 8
 
@@ -26,6 +25,7 @@ def main(_):
         network=networks.DQNAtariNetwork(num_actions=num_choices),
         batch_size=10,
         samples_per_insert=2,
+        n_step=1,
         min_replay_size=10)
 
     loop = acme.EnvironmentLoop(env, agent)
