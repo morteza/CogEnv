@@ -1,5 +1,5 @@
 
-from typing import Sequence, Dict
+from typing import Sequence, Dict, Any
 
 from android_env.components import action_type
 from android_env.wrappers import base_wrapper
@@ -8,7 +8,11 @@ from dm_env import specs
 import numpy as np
 
 from android_env.wrappers.float_pixels_wrapper import FloatPixelsWrapper
+from android_env.proto.adb_pb2 import AdbRequest
+
 from acme import wrappers as acme_wrappers
+
+import json
 
 
 class BelvalMatricesWrapper(base_wrapper.BaseWrapper):
@@ -46,7 +50,7 @@ class BelvalMatricesWrapper(base_wrapper.BaseWrapper):
     self._env_steps += 2  # 2 steps per action (touch and lift)
     tap_actions = self._process_action(action)
     total_reward = 0.0
-    step_type, discount, observation = dm_env.StepType.MID, 0.0, None
+    step_type, discount, observation = dm_env.StepType.MID, 0.0, {}
 
     for a in tap_actions:
       step_type, reward, discount, observation = self._env.step(a)
@@ -82,7 +86,35 @@ class BelvalMatricesWrapper(base_wrapper.BaseWrapper):
 
     tap.append(lift)
 
+    # put response.output in the task extras
     return tap
+
+  def task_extras(self, latest_only: bool = True) -> Dict[str, np.ndarray]:
+    """Pulls the latest Behaverse events from the ExportedData/ folder via ADB."""
+
+    # find logs, sort them by time, find the last one, and read the last 5 lives of of the json file
+    adb_cmd_args = (
+        'shell',
+        'find /sdcard/Android/data/org.xcit.behaverse/files/ExportedData/ -name "*.json" -printf "%T@\\t%p\\n" | '
+        'sort -nr | '
+        'cut -f 2- | '
+        'head -1 | '
+        f'xargs -n 1 tail -1'
+    )
+
+    adb_call = AdbRequest(generic=AdbRequest.GenericRequest(args=adb_cmd_args))
+    adb_response = self.execute_adb_call(adb_call)
+
+    extras = json.loads(adb_response.generic.output)
+
+    return extras
+
+  def task_extras_spec(self) -> Dict[str, specs.Array]:
+    return self._env.task_extras_spec()
+
+  def _wrapper_stats(self) -> Dict[str, Any]:
+    """Add wrapper specific logging here."""
+    return {}
 
   def _get_touch_position(self, action_id: int, orientation='landscape') -> Sequence[float]:
     """Compute the position of BM touches

@@ -173,18 +173,18 @@ max_episode_sec: 7200
 
 log_parsing_config: {
 
-  filters: ["org.xcit.behaverse:V"]
-
+  filters: ["*:S", "Unity:I"]
   log_regexps: {
     score: "^[Ss]core: ([-+]?[0-9]*\\.?[0-9]*)$"
-    reward: "^[Rr]eward: ([-+]?[0-9]*\\.?[0-9]*)$"
-    episode_end: "^[Ss]core: ([-+]?[0-9]*\\.?[0-9]*)$"  # End the episode upon any score received.
-    extra: "^.*CONSOLE(?P<name>.*)[ ](?P<extra>.*)$"
-    json_extra: "^json_extra: (?P<json_extra>.*)$"
+    reward: ".*accuracy: ([0-9]*\\.?[0-9]*).*"
+    episode_end: "^.*BlockEnd.*$"  # End the episode upon any event received.
+    extra: "^(P?<extra>.*)$"
+    json_extra: "^(?P<json_extra>.*base.*)$"
   }
 }
 
 extras_spec: [
+  { name: "base" shape:[1] dtype: STRING }
   # All of these a returned when the ball arrives at the bottom of the screen
   # The number of remaining lives
   # { name: "lives" shape: [1] dtype: INT32 },
