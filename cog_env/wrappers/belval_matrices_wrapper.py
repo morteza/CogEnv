@@ -1,4 +1,5 @@
 
+import logging
 from typing import Sequence, Dict, Any
 
 from android_env.components import action_type
@@ -105,13 +106,20 @@ class BelvalMatricesWrapper(base_wrapper.BaseWrapper):
     adb_call = AdbRequest(generic=AdbRequest.GenericRequest(args=adb_cmd_args))
     adb_response = self.execute_adb_call(adb_call)
 
-    behaverse_events = json.loads(adb_response.generic.output)
+    behaverse_event_lines = str(adb_response.generic.output).replace('\\\\n', '\n').split('\n')
 
-    for event in reversed(behaverse_events):
+    logging.info(behaverse_event_lines)
+
+    for event_line in reversed(behaverse_event_lines):
+      if event_line is None or len(event_line.strip()) == 0:
+        continue
+      event = json.loads(event_line) 
       if 'BM.TrialStart' in event['types'] or 'BM.TrialEnd' in event['types']:
         return event
 
-    return behaverse_events[-1]
+    # fall back to the last event
+    # FIXME instead combine all the events
+    return json.loads(behaverse_event_lines[-1])
 
 
   def task_extras_spec(self) -> Dict[str, specs.Array]:
