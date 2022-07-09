@@ -1,4 +1,4 @@
-# cog_env: Cognitive Tests Environments
+# cogenv: Cognitive Tests Environments
 
 The CogEnv package provides standard cognitive tests as RL environments. It uses AndroidEnv to wrap [Behaverse Cognitive Assessment Battery](https://behaverse.org).
 

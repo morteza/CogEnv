@@ -1,4 +1,4 @@
-name: cog_env
+name: cogenv
 
 channels:
   - conda-forge
@@ -10,6 +10,7 @@ dependencies:
   - notebook
   - flake8
   - pip:
+    - -r requirements.txt
     # - git+https://github.com/deepmind/android_env/
     # - tensorflow==2.8.0
     # - dm-acme

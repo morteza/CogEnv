@@ -1,4 +1,4 @@
-# proto-file: cog_env/proto/web.proto
+# proto-file: cogenv/proto/web.proto
 # proto-message: web.Task
 
 id: "web"

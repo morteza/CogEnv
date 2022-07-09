@@ -15,7 +15,7 @@ from pathlib import Path
 
 avd_name = 'CogEnv_API_32'
 home_dir = Path.home()
-task_path = 'cog_env/proto/belval_matrices.textproto'
+task_path = 'cogenv/proto/belval_matrices.textproto'
 android_avd_home = Path.home() / '.android/avd'
 android_sdk_root = Path.home() / 'Android/Sdk'
 emulator_path = Path.home() / 'Android/Sdk/emulator/emulator'

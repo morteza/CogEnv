@@ -1,4 +1,4 @@
-# proto-file: cog_env/proto/belval_matrices.textproto
+# proto-file: cogenv/proto/belval_matrices.textproto
 # proto-message: belval_matrices.Task
 
 id: "belval_matrices"

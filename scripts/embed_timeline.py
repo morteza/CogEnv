@@ -9,7 +9,7 @@ from google.protobuf import text_format
 
 from android_env.proto import task_pb2
 
-task_proto_path = 'cog_env/proto/belval_matrices.textproto'
+task_proto_path = 'cogenv/proto/belval_matrices.textproto'
 timeline_json_path = 'vendor/BM.json'
 output_proto_path = 'vendor/BM.textproto'
 

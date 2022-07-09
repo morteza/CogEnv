@@ -17,8 +17,8 @@ home_dir = Path.home()
 n_steps = 1000
 
 
-# task_path = 'cog_env/proto/web.textproto'
-task_path = 'cog_env/proto/belval_matrices.textproto'
+# task_path = 'cogenv/proto/web.textproto'
+task_path = 'cogenv/proto/belval_matrices.textproto'
 android_avd_home = Path.home() / '.android/avd'
 android_sdk_root = Path.home() / 'Android/Sdk'
 emulator_path = Path.home() / 'Android/Sdk/emulator/emulator'

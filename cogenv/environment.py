@@ -64,7 +64,7 @@ class CogEnv(AndroidEnv):
 
     run_headless = kwargs.get('run_headless', False)
 
-    task_path = Path('cog_env/proto') / f'{task_name}.textproto'
+    task_path = Path('cogenv/proto') / f'{task_name}.textproto'
 
     # Load the Behaverse task proto.
     task = task_pb2.Task()

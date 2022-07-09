@@ -6,7 +6,7 @@ import acme
 from acme import specs
 from acme.agents.tf import dqn
 from acme.tf import networks
-from cog_env.environment import CogEnv
+from cogenv.environment import CogEnv
 
 import matplotlib.pyplot as plt
 
