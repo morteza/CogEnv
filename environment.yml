@@ -4,16 +4,16 @@ channels:
   - conda-forge
 
 dependencies:
-  - python=3.9
+  - python=3.10
+  - pip
   - ipykernel
-  - jupyter
-  - notebook
   - flake8
+  - pytest
   - pip:
-    - -r requirements.txt
-    # - git+https://github.com/deepmind/android_env/
-    # - tensorflow==2.8.0
-    # - dm-acme
-    # - dm-acme[jax,tensrflow]
-    # - dm-acme[envs]
-    # - pandas
+    - pandas
+    - dm-env
+    # - git+https://github.com/deepmind/dm_env.git
+    # dm-acme[jax,tf,envs]
+    - git+https://github.com/deepmind/acme.git#egg=dm-acme[jax,tf]
+    # android-env
+    - git+https://github.com/deepmind/android_env/
