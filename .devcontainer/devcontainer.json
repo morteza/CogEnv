@@ -14,14 +14,7 @@
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": [
-		"conda env create -f environment.yml",
-		"mkdir tmp/",
-		"wget https://dl.google.com/android/repository/commandlinetools-linux-9123335_latest.zip -o tmp/android_cli.zip"
-
-		// download android tools
-	]
-
+	"postCreateCommand": "conda init && conda env create -f environment.yml && conda activate cogenvs"
 	// Configure tool-specific properties.
 	// "customizations": {},
 

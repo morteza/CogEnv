@@ -1,9 +1,10 @@
 FROM mcr.microsoft.com/devcontainers/miniconda:3
 
-# To add conda packages to the image uncomment the following commands,
-# otherwise devcontainer.json will initialize the environment (see postCreateCommand)
-# RUN /opt/conda/bin/conda update conda -n base
-# RUN /opt/conda/bin/conda env create -f environment.yml
+RUN mkdir -p tmp/
+RUN wget -O tmp/android_cli.zip https://dl.google.com/android/repository/commandlinetools-linux-9123335_latest.zip
+
+# to update conda
+# RUN conda update conda -n base
 
 # [Optional] Uncomment this section to install additional OS packages.
 # RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
