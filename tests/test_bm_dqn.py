@@ -41,6 +41,8 @@ def manual_loop(_):
         action = agent.select_action(timestep.observation)
         timestep = env.step(action)
 
+        print(env.task_extras())
+
         agent.observe(action, next_timestep=timestep)
 
         plt.imshow(timestep.observation)

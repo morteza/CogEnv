@@ -77,6 +77,7 @@ class CogEnv(AndroidEnv):
             adb_path=os.path.expanduser(adb_path),
             adb_server_port=5037,
         ),
+        verbose_logs=True,
         emulator_launcher_args=dict(
             avd_name=avd_name,
             android_avd_home=os.path.expanduser(android_avd_home),
