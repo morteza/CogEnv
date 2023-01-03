@@ -10,7 +10,7 @@ from cogenv.environment import CogEnv
 
 import matplotlib.pyplot as plt
 
-avd_name = 'CogEnv_API_32'
+avd_name = 'CogEnv'
 task_name = 'belval_matrices'
 num_episodes = 10
 num_choices = 8

@@ -29,3 +29,5 @@ RUN sh ./Mambaforge-$(uname)-$(uname -m).sh -b
 RUN rm -rf ./Mambaforge-$(uname)-$(uname -m).sh
 RUN ~/mambaforge/condabin/conda init
 RUN ~/mambaforge/condabin/mamba init
+
+ENV LD_LIBRARY_PATH "$CONDA_PREFIX/lib:$LD_LIBRARY_PATH"

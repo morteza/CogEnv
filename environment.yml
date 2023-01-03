@@ -14,6 +14,6 @@ dependencies:
     - dm-env
     # - git+https://github.com/deepmind/dm_env.git
     # dm-acme[jax,tf,envs]
-    - git+https://github.com/deepmind/acme.git#egg=dm-acme[jax,tf]
+    - git+https://github.com/deepmind/acme.git#egg=dm-acme[jax,tf,envs]
     # android-env
     - git+https://github.com/deepmind/android_env/

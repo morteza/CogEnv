@@ -14,7 +14,7 @@
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "mamba env create -f environment.yml",
+	"postCreateCommand": "mamba env create -f environment.yml && envs",
 	"postStartCommand": "nohup tmp/emulator/emulator -no-window -no-snapshot -gpu swiftshader_indirect -no-audio -show-kernel -verbose -avd CogEnv -grpc 17482 -ports 18609,23979 > tmp/CogEnv_emulator.log 2>&1 &",
 	// Configure tool-specific properties.
 	// "customizations": {},
